@@ -9,7 +9,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedHebrew = null;
     let selectedSpanish = null;
     let matchedPairs = 0;
-    const wordsPerRound = 5;
+    const wordsPerRound = 7;
+
+    // --- TEXT-TO-SPEECH FUNCTIONALITY ---
+    let spanishVoice = null;
+
+    function loadVoices() {
+        const voices = window.speechSynthesis.getVoices();
+        spanishVoice = voices.find(voice => voice.lang.startsWith('es')) || voices.find(voice => voice.lang.startsWith('en')); // Fallback to English
+    }
+
+    function speak(text) {
+        if (!spanishVoice) {
+            console.warn("Spanish voice not loaded yet.");
+            return;
+        }
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = spanishVoice;
+        utterance.lang = 'es-ES';
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Load voices when they are ready
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices(); // Initial attempt
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -58,16 +81,30 @@ document.addEventListener('DOMContentLoaded', () => {
         wordsArray.forEach(wordText => {
             const card = document.createElement('div');
             card.classList.add('word-card');
-            card.textContent = wordText;
             card.dataset.word = wordText;
             card.dataset.lang = language;
+
+            const wordSpan = document.createElement('span');
+            wordSpan.textContent = wordText;
+            card.appendChild(wordSpan);
+
+            if (language === 'spanish') {
+                const speakerIcon = document.createElement('i');
+                speakerIcon.className = 'fas fa-volume-up speaker-icon';
+                speakerIcon.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent card from being selected
+                    speak(wordText);
+                });
+                card.appendChild(speakerIcon);
+            }
+
             card.addEventListener('click', onWordClick);
             column.appendChild(card);
         });
     }
 
     function onWordClick(event) {
-        const selectedCard = event.target;
+        const selectedCard = event.currentTarget; // Use currentTarget to get the element with the listener
         if (selectedCard.classList.contains('matched')) return;
 
         const lang = selectedCard.dataset.lang;
@@ -94,43 +131,57 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkMatch() {
         const hebrewWord = selectedHebrew.dataset.word;
         const spanishWord = selectedSpanish.dataset.word;
-
         const levelData = words.levels.find(l => l.level == currentLevel);
         const correctPair = levelData.words.find(pair => pair.hebrew === hebrewWord && pair.spanish === spanishWord);
 
+        // Stop pulsing
+        selectedHebrew.classList.remove('selected');
+        selectedSpanish.classList.remove('selected');
+
         if (correctPair) {
             setStatusMessage('נכון!', 'correct');
-            selectedHebrew.classList.add('matched');
-            selectedSpanish.classList.add('matched');
-            selectedHebrew.classList.remove('selected');
-            selectedSpanish.classList.remove('selected');
 
-            selectedHebrew.removeEventListener('click', onWordClick);
-            selectedSpanish.removeEventListener('click', onWordClick);
+            // Trigger tada animation
+            selectedHebrew.classList.add('tada');
+            selectedSpanish.classList.add('tada');
 
-            selectedHebrew = null;
-            selectedSpanish = null;
-            matchedPairs++;
+            // Mark as matched after animation
+            setTimeout(() => {
+                selectedHebrew.classList.add('matched');
+                selectedSpanish.classList.add('matched');
+                selectedHebrew.removeEventListener('click', onWordClick);
+                selectedSpanish.removeEventListener('click', onWordClick);
 
-            if (matchedPairs === wordsPerRound) {
-                // Remove matched words from the pool
-                const matchedHebrewWords = Array.from(hebrewColumn.querySelectorAll('.matched')).map(c => c.dataset.word);
-                currentWords = currentWords.filter(word => !matchedHebrewWords.includes(word.hebrew));
+                selectedHebrew = null;
+                selectedSpanish = null;
+                matchedPairs++;
 
-                matchedPairs = 0;
-                setTimeout(() => {
-                    setStatusMessage('טוען מילים חדשות...', '');
-                    setTimeout(loadRound, 1000);
-                }, 1500);
-            }
+                if (matchedPairs >= wordsPerRound || matchedPairs >= currentWords.length) {
+                    const matchedHebrewWords = Array.from(hebrewColumn.querySelectorAll('.matched')).map(c => c.dataset.word);
+                    currentWords = currentWords.filter(word => !matchedHebrewWords.includes(word.hebrew));
+
+                    matchedPairs = 0;
+                    setTimeout(() => {
+                        setStatusMessage('טוען מילים חדשות...', '');
+                        setTimeout(loadRound, 1000);
+                    }, 1500);
+                }
+            }, 800); // Wait for tada animation to finish
+
         } else {
             setStatusMessage('לא נכון, נסו שוב.', 'incorrect');
+
+            // Trigger shake animation
+            selectedHebrew.classList.add('shake');
+            selectedSpanish.classList.add('shake');
+
             const hebrewCard = selectedHebrew;
             const spanishCard = selectedSpanish;
 
+            // Remove shake class after animation so it can be re-triggered
             setTimeout(() => {
-                hebrewCard.classList.remove('selected');
-                spanishCard.classList.remove('selected');
+                hebrewCard.classList.remove('shake');
+                spanishCard.classList.remove('shake');
             }, 500);
 
             selectedHebrew = null;
