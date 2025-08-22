@@ -1,4 +1,4 @@
-const sentences = {
+var sentences = {
     levels: [
         {
             level: 1,

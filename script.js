@@ -66,21 +66,41 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- TEXT-TO-SPEECH FUNCTIONALITY ---
-    let spanishVoice = null;
+    let speechVoices = [];
 
     function loadVoices() {
-        const voices = window.speechSynthesis.getVoices();
-        spanishVoice = voices.find(voice => voice.lang.startsWith('es')) || voices.find(voice => voice.lang.startsWith('en')); // Fallback to English
+        speechVoices = window.speechSynthesis.getVoices();
     }
 
-    function speak(text) {
-        if (!spanishVoice) {
-            console.warn("Spanish voice not loaded yet.");
+    function speak(text, lang) {
+        if (speechVoices.length === 0) {
+            console.warn("Speech voices not loaded yet.");
             return;
         }
+
+        const langCodeMap = {
+            es: 'es-ES',
+            en: 'en-US',
+            de: 'de-DE',
+            ar: 'ar-SA'
+        };
+        const fullLangCode = langCodeMap[lang] || 'es-ES';
+
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.voice = spanishVoice;
-        utterance.lang = 'es-ES';
+        utterance.lang = fullLangCode;
+
+        // Find a voice for the specific language
+        const voice = speechVoices.find(v => v.lang === fullLangCode);
+        if (voice) {
+            utterance.voice = voice;
+        } else {
+            // Fallback to a voice that starts with the language code
+            const fallbackVoice = speechVoices.find(v => v.lang.startsWith(lang));
+            if (fallbackVoice) {
+                utterance.voice = fallbackVoice;
+            }
+        }
+
         window.speechSynthesis.speak(utterance);
     }
 
@@ -167,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 speakerIcon.className = 'fas fa-volume-up speaker-icon';
                 speakerIcon.addEventListener('click', (e) => {
                     e.stopPropagation(); // Prevent card from being selected
-                    speak(wordText);
+                    speak(wordText, selectedLanguage);
                 });
                 card.appendChild(speakerIcon);
             }

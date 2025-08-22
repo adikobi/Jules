@@ -1,4 +1,4 @@
-const words_en = {
+var words_en = {
     levels: [
         { level: 1, name: "רמה 1: Basics", words: [ { hebrew: "שלום", foreign: "Hello" }, { hebrew: "תודה", foreign: "Thank you" }, { hebrew: "כן", foreign: "Yes" }, { hebrew: "לא", foreign: "No" }, { hebrew: "בבקשה", foreign: "Please" } ] },
         { level: 2, name: "רמה 2: People", words: [ { hebrew: "איש", foreign: "Man" }, { hebrew: "אישה", foreign: "Woman" }, { hebrew: "ילד", foreign: "Boy" }, { hebrew: "ילדה", foreign: "Girl" }, { hebrew: "חבר", foreign: "Friend" } ] },

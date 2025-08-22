@@ -1,4 +1,4 @@
-const words_ar = {
+var words_ar = {
     levels: [
         { level: 1, name: "רמה 1: أساسيات", words: [ { hebrew: "שלום", foreign: "مرحبا" }, { hebrew: "תודה", foreign: "شكرا" }, { hebrew: "כן", foreign: "نعم" }, { hebrew: "לא", foreign: "لا" }, { hebrew: "בבקשה", foreign: "من فضلك" } ] },
         { level: 2, name: "רמה 2: الناس", words: [ { hebrew: "איש", foreign: "رجل" }, { hebrew: "אישה", foreign: "امرأة" }, { hebrew: "ילד", foreign: "ولد" }, { hebrew: "ילדה", foreign: "بنت" }, { hebrew: "חבר", foreign: "صديق" } ] },
