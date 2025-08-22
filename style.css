@@ -269,16 +269,20 @@ h1, h2, h3 {
 
     /* Game Screen */
     #game-board {
-        flex-direction: column;
-        align-items: center;
+        /* This rule is removed: flex-direction: column; */
+        align-items: flex-start; /* Keep top-alignment */
         gap: 10px;
-        padding: 20px 10px;
+        padding: 20px 5px; /* Reduce horizontal padding */
     }
     .column {
-        width: 100%;
+        width: 48%; /* Make columns take up roughly half the screen */
+    }
+    .column h2 {
+        font-size: 1.2em;
     }
     .word-card {
-        padding: 12px 20px;
+        padding: 8px 12px; /* Reduce padding */
+        font-size: 0.9em; /* Reduce font size */
         min-width: 0;
     }
     .page-header {
