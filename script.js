@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sentenceDisplay = document.getElementById('sentence-display');
     const sentenceChoicesContainer = document.getElementById('sentence-choices-container');
     const sentenceStatusMessage = document.getElementById('sentence-status-message');
+    const wordGameTitle = document.querySelector('#game-screen h1');
+    const sentenceGameTitle = document.querySelector('#sentence-game-screen h1');
 
     function showScreen(screenId) {
         screens.forEach(screen => {
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- App State ---
     const LANGUAGE_KEY = 'palabras_selected_language';
+    const HEBREW_LANG_NAMES = { es: 'ספרדית', en: 'אנגלית', de: 'גרמנית', ar: 'ערבית' };
     let selectedLanguage = null;
     let currentLevel = 1;
     let currentWords = [];
@@ -50,20 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSentenceIndex = 0;
     const wordsPerRound = 7;
 
-    // --- Progress Management ---
-    const progress = {
-        getCompletedLevels: function() {
-            const completed = localStorage.getItem('palabrasCompletedLevels');
-            return completed ? JSON.parse(completed) : [];
-        },
-        markLevelAsComplete: function(levelNum) {
-            let completed = this.getCompletedLevels();
-            if (!completed.includes(levelNum)) {
-                completed.push(levelNum);
-                localStorage.setItem('palabrasCompletedLevels', JSON.stringify(completed));
-            }
-        }
-    };
+    // --- Progress Management (REMOVED BY USER REQUEST) ---
 
     // --- TEXT-TO-SPEECH FUNCTIONALITY ---
     let speechVoices = [];
@@ -120,7 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLevel = level;
         const wordData = window['words_' + selectedLanguage] || words;
 
-        // --- Update foreign language column header and style ---
+        // --- Update Titles and Column Headers ---
+        const langName = HEBREW_LANG_NAMES[selectedLanguage] || 'ספרדית';
+        wordGameTitle.textContent = 'לימוד ' + langName;
         const langMap = { es: 'Español', en: 'English', de: 'Deutsch', ar: 'العربية' };
         const foreignColumn = document.getElementById('spanish-column'); // This ID is now misleading, but we'll keep it for simplicity
         const foreignHeader = foreignColumn.querySelector('h2');
@@ -154,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (roundWords.length === 0) {
             statusMessage.textContent = 'כל הכבוד! סיימת את כל המילים ברמה זו.';
             statusMessage.className = 'correct';
-            progress.markLevelAsComplete(currentLevel);
+            // progress.markLevelAsComplete(currentLevel); // REMOVED
             // TODO: Add a "back to levels" button or automatic transition
             return;
         }
@@ -301,6 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadSentenceLevel(levelNum) {
         currentSentenceLevel = levelNum;
         const sentenceData = window['sentences_' + selectedLanguage] || sentences;
+
+        const langName = HEBREW_LANG_NAMES[selectedLanguage] || 'ספרדית';
+        sentenceGameTitle.textContent = 'השלמת משפטים: ' + langName;
         const levelData = sentenceData.levels.find(l => l.level == levelNum);
         if (levelData) {
             currentSentences = shuffleArray([...levelData.sentences]);
@@ -365,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateLevelSelectScreen(mode) {
         levelPathContainer.innerHTML = ''; // Clear previous nodes
-        const completedLevels = progress.getCompletedLevels(); // Note: progress is shared for now
+        // const completedLevels = progress.getCompletedLevels(); // REMOVED
 
         const dataSource = (mode === 'words')
             ? (window['words_' + selectedLanguage] || words)
@@ -374,9 +369,9 @@ document.addEventListener('DOMContentLoaded', () => {
         dataSource.levels.forEach(level => {
             const levelNode = document.createElement('div');
             levelNode.classList.add('level-node');
-            if (completedLevels.includes(level.level)) { // TODO: Differentiate progress by mode
-                levelNode.classList.add('completed');
-            }
+            // if (completedLevels.includes(level.level)) { // REMOVED
+            //     levelNode.classList.add('completed');
+            // }
 
             const levelNumber = document.createElement('span');
             levelNumber.classList.add('level-node-number');

@@ -351,23 +351,6 @@ h1, h2, h3 {
     border-color: var(--selected-bg);
 }
 
-.level-node.completed {
-    background-color: var(--matched-bg);
-    border-color: var(--matched-bg);
-    color: var(--bg-color);
-}
-
-.level-node.completed::after {
-    content: '\f00c'; /* Font Awesome check icon */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    font-size: 0.5em;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    color: var(--bg-color);
-}
-
 /* --- Splash Screen Styles --- */
 .splash-content {
     display: flex;
