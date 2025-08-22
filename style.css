@@ -46,27 +46,32 @@ h1, h2, h3 {
     border: 1px solid var(--border-color);
     text-align: center;
     overflow: hidden;
+    position: relative;
+    padding-top: 80px; /* Make space for the new header curve */
+}
+
+#game-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px; /* Height of the solid part + curve */
+    background-color: var(--bg-color); /* Solid dark background for the top */
+    border-radius: 0 0 50% 50% / 0 0 30px 30px; /* Creates the curve */
+    z-index: 0;
 }
 
 .page-header {
-    position: relative;
+    position: absolute; /* Position it inside the wrapper's padding */
+    top: 0;
+    left: 0;
+    right: 0;
     padding: 20px;
-    background-color: rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.page-header::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200%;
-    height: 100px;
-    border-radius: 50%;
-    background-color: var(--bg-color);
+    z-index: 1; /* Ensure it's above the curve */
 }
 
 .back-btn {
@@ -112,6 +117,7 @@ h1, h2, h3 {
 #game-board {
     display: flex;
     justify-content: space-around;
+    align-items: flex-start; /* Align columns to the top */
     gap: 50px;
     padding: 30px;
 }
@@ -129,6 +135,7 @@ h1, h2, h3 {
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
     font-size: 1.1em;
     min-width: 180px;
+    min-height: 30px; /* Ensure cards have same height */
 }
 
 .speaker-icon {
@@ -230,6 +237,58 @@ h1, h2, h3 {
     }
 }
 
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    /* Splash Screen */
+    .splash-title {
+        font-size: 3em;
+    }
+    .start-btn {
+        font-size: 1.2em;
+        padding: 12px 30px;
+    }
+
+    /* Level Select */
+    #level-select-screen h3 {
+        font-size: 2em;
+    }
+    .level-node {
+        width: 90px;
+        height: 90px;
+    }
+    .level-node-number {
+        font-size: 2em;
+    }
+    .level-node-name {
+        font-size: 0.8em;
+    }
+
+    /* Game Screen */
+    #game-board {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 10px;
+    }
+    .column {
+        width: 100%;
+    }
+    .word-card {
+        padding: 12px 20px;
+        min-width: 0;
+    }
+    .page-header {
+        padding: 15px;
+    }
+    .back-btn {
+        left: 10px;
+    }
+}
+
 /* --- Level Select Screen Styles --- */
 #level-select-screen h3 {
     font-size: 2.5em;
@@ -247,21 +306,33 @@ h1, h2, h3 {
 }
 
 .level-node {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     background-color: var(--card-bg);
     border: 3px solid var(--border-color);
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 2em;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
+    text-align: center;
     color: var(--text-color);
     cursor: pointer;
     transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
     position: relative;
+    padding: 10px;
+}
+
+.level-node-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.level-node-name {
+    font-size: 0.9em;
+    margin-top: 5px;
+    font-family: 'Heebo', sans-serif;
 }
 
 .level-node:hover {
@@ -365,4 +436,116 @@ h1, h2, h3 {
     to {
         transform: translateX(50px) rotate(360deg);
     }
+}
+
+/* --- Sentence Game Styles --- */
+.sentence-game-wrapper {
+    background: var(--card-bg);
+    width: 90%;
+    max-width: 900px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    overflow: hidden;
+    padding-bottom: 30px;
+}
+
+#sentence-display {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    padding: 60px 40px;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+#sentence-choices-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.choice-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    background-color: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.choice-btn:hover {
+    background-color: var(--border-color);
+    border-color: var(--selected-bg);
+}
+
+#sentence-status-message {
+    margin-top: 30px;
+    font-size: 1.2em;
+    min-height: 30px;
+    font-weight: bold;
+}
+
+.choice-btn.correct-choice {
+    background-color: var(--matched-bg);
+    border-color: var(--matched-bg);
+    color: var(--bg-color);
+}
+
+.choice-btn.incorrect-choice {
+    background-color: var(--error-color);
+    border-color: var(--error-color);
+    color: var(--text-color);
+    animation: shake 0.5s ease-in-out;
+}
+
+/* --- Mode Select Screen Styles --- */
+#mode-select-screen h2 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.mode-options-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.mode-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    width: 250px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.mode-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.mode-card i {
+    font-size: 4em;
+    color: var(--selected-bg);
+    margin-bottom: 20px;
+}
+
+.mode-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.mode-card p {
+    font-size: 1em;
+    color: var(--text-color);
+    opacity: 0.8;
 }

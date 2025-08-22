@@ -26,14 +26,45 @@
             </div>
         </section>
 
-        <!-- Screen 2: Level Select Screen (Hidden by default) -->
+        <!-- Screen 2: Mode Select Screen (Hidden by default) -->
+        <section id="mode-select-screen" class="screen hidden">
+            <div class="mode-select-content">
+                <h2>בחר מצב משחק</h2>
+                <div class="mode-options-container">
+                    <div class="mode-card" id="mode-words">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>התאמת מילים</h3>
+                        <p>התאם את המילה בעברית למילה בספרדית</p>
+                    </div>
+                    <div class="mode-card" id="mode-sentences">
+                        <i class="fas fa-pen-alt"></i>
+                        <h3>השלמת משפטים</h3>
+                        <p>בחר את המילה הנכונה להשלמת המשפט</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 3: Level Select Screen (Hidden by default) -->
         <section id="level-select-screen" class="screen hidden">
-            <!-- Content will be added in a later step -->
             <h3>בחר שלב</h3>
             <div id="level-path-container"></div>
         </section>
 
-        <!-- Screen 3: Game Screen (Hidden by default) -->
+        <!-- Screen 4: Sentence Game Screen (Hidden by default) -->
+        <section id="sentence-game-screen" class="screen hidden">
+            <div class="sentence-game-wrapper">
+                <header class="page-header">
+                    <button id="back-to-menu-btn-sentences" class="back-btn"><i class="fas fa-arrow-left"></i></button>
+                    <h1>השלמת משפטים</h1>
+                </header>
+                <div id="sentence-display"></div>
+                <div id="sentence-choices-container"></div>
+                <div id="sentence-status-message"></div>
+            </div>
+        </section>
+
+        <!-- Screen 5: Game Screen (Hidden by default) -->
         <section id="game-screen" class="screen hidden">
             <div id="game-wrapper">
                 <header class="page-header">
@@ -75,6 +106,7 @@
     </main>
 
     <script src="words.js"></script>
+    <script src="sentences.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

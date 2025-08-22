@@ -2,11 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Screen Management ---
     const screens = document.querySelectorAll('.screen');
     const splashScreen = document.getElementById('splash-screen');
+    const modeSelectScreen = document.getElementById('mode-select-screen');
     const levelSelectScreen = document.getElementById('level-select-screen');
     const gameScreen = document.getElementById('game-screen');
     const startGameBtn = document.getElementById('start-game-btn');
+    const wordModeBtn = document.getElementById('mode-words');
+    const sentenceModeBtn = document.getElementById('mode-sentences');
     const levelPathContainer = document.getElementById('level-path-container');
     const backToMenuBtn = document.getElementById('back-to-menu-btn');
+    const backToMenuBtnSentences = document.getElementById('back-to-menu-btn-sentences');
+    const sentenceGameScreen = document.getElementById('sentence-game-screen');
+    const sentenceDisplay = document.getElementById('sentence-display');
+    const sentenceChoicesContainer = document.getElementById('sentence-choices-container');
+    const sentenceStatusMessage = document.getElementById('sentence-status-message');
 
     function showScreen(screenId) {
         screens.forEach(screen => {
@@ -29,6 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedHebrew = null;
     let selectedSpanish = null;
     let matchedPairs = 0;
+
+    // --- Sentence Game State ---
+    let currentSentenceLevel = 1;
+    let currentSentences = [];
+    let currentSentenceIndex = 0;
     const wordsPerRound = 7;
 
     // --- Progress Management ---
@@ -244,46 +257,143 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessage.className = className;
     }
 
-    function populateLevelSelectScreen() {
-        levelPathContainer.innerHTML = ''; // Clear previous nodes
-        const completedLevels = progress.getCompletedLevels();
+    // --- SENTENCE GAME LOGIC ---
+    function loadSentenceLevel(levelNum) {
+        currentSentenceLevel = levelNum;
+        const levelData = sentences.levels.find(l => l.level == levelNum);
+        if (levelData) {
+            currentSentences = shuffleArray([...levelData.sentences]);
+            currentSentenceIndex = 0;
+            displayCurrentSentence();
+        }
+    }
 
-        words.levels.forEach(level => {
+    function displayCurrentSentence() {
+        sentenceChoicesContainer.innerHTML = '';
+        sentenceStatusMessage.textContent = '';
+
+        if (currentSentenceIndex >= currentSentences.length) {
+            sentenceDisplay.textContent = 'כל הכבוד! סיימת את כל המשפטים ברמה זו.';
+            // TODO: Mark sentence level as complete
+            return;
+        }
+
+        const sentenceData = currentSentences[currentSentenceIndex];
+        sentenceDisplay.textContent = sentenceData.text;
+
+        const shuffledChoices = shuffleArray([...sentenceData.choices]);
+        shuffledChoices.forEach(choice => {
+            const choiceBtn = document.createElement('button');
+            choiceBtn.classList.add('choice-btn');
+            choiceBtn.textContent = choice;
+            choiceBtn.addEventListener('click', (e) => checkSentenceAnswer(choice, sentenceData.missing, e.target));
+            sentenceChoicesContainer.appendChild(choiceBtn);
+        });
+    }
+
+    function checkSentenceAnswer(selectedWord, correctWord, buttonElement) {
+        // Disable all buttons to prevent multiple clicks while processing
+        const allChoiceBtns = sentenceChoicesContainer.querySelectorAll('.choice-btn');
+        allChoiceBtns.forEach(btn => btn.disabled = true);
+
+        if (selectedWord === correctWord) {
+            sentenceStatusMessage.textContent = 'נכון!';
+            sentenceStatusMessage.className = 'correct';
+            buttonElement.classList.add('correct-choice');
+
+            // Animate the word filling in
+            sentenceDisplay.textContent = sentenceDisplay.textContent.replace('___', ` ${correctWord} `);
+
+            setTimeout(() => {
+                currentSentenceIndex++;
+                displayCurrentSentence();
+            }, 1500);
+        } else {
+            sentenceStatusMessage.textContent = 'לא נכון, נסה שוב.';
+            sentenceStatusMessage.className = 'incorrect';
+            buttonElement.classList.add('incorrect-choice');
+
+            // Re-enable buttons after a delay, but remove the incorrect class first
+            setTimeout(() => {
+                buttonElement.classList.remove('incorrect-choice');
+                allChoiceBtns.forEach(btn => btn.disabled = false);
+            }, 1000);
+        }
+    }
+
+
+    function populateLevelSelectScreen(mode) {
+        levelPathContainer.innerHTML = ''; // Clear previous nodes
+        const completedLevels = progress.getCompletedLevels(); // Note: progress is shared for now
+
+        const dataSource = (mode === 'words') ? words : sentences;
+
+        dataSource.levels.forEach(level => {
             const levelNode = document.createElement('div');
             levelNode.classList.add('level-node');
-            if (completedLevels.includes(level.level)) {
+            if (completedLevels.includes(level.level)) { // TODO: Differentiate progress by mode
                 levelNode.classList.add('completed');
             }
-            levelNode.textContent = level.level;
+
+            const levelNumber = document.createElement('span');
+            levelNumber.classList.add('level-node-number');
+            levelNumber.textContent = level.level;
+
+            const levelName = document.createElement('span');
+            levelName.classList.add('level-node-name');
+            levelName.textContent = level.name.split(': ')[1] || level.name;
+
+            levelNode.appendChild(levelNumber);
+            levelNode.appendChild(levelName);
             levelNode.dataset.levelId = level.level;
 
             levelNode.addEventListener('click', () => {
-                loadLevel(level.level);
-                showScreen('game-screen');
+                if (mode === 'words') {
+                    loadLevel(level.level);
+                    showScreen('game-screen');
+                } else {
+                    loadSentenceLevel(level.level);
+                    showScreen('sentence-game-screen');
+                }
             });
             levelPathContainer.appendChild(levelNode);
         });
 
-        // Add Mixed Level Node
-        const mixedLevelNode = document.createElement('div');
-        mixedLevelNode.classList.add('level-node', 'mixed-level');
-        mixedLevelNode.textContent = 'Mix';
-        mixedLevelNode.addEventListener('click', () => {
-            loadLevel('mixed');
-            showScreen('game-screen');
-        });
-        levelPathContainer.appendChild(mixedLevelNode);
+        // Add Mixed Level Node only for word mode
+        if (mode === 'words') {
+            const mixedLevelNode = document.createElement('div');
+            mixedLevelNode.classList.add('level-node', 'mixed-level');
+            mixedLevelNode.textContent = 'Mix';
+            mixedLevelNode.addEventListener('click', () => {
+                loadLevel('mixed');
+                showScreen('game-screen');
+            });
+            levelPathContainer.appendChild(mixedLevelNode);
+        }
     }
 
 
     // --- Event Listeners & Initial State ---
     startGameBtn.addEventListener('click', () => {
-        populateLevelSelectScreen(); // Populate levels right before showing the screen
+        showScreen('mode-select-screen');
+    });
+
+    wordModeBtn.addEventListener('click', () => {
+        populateLevelSelectScreen('words');
+        showScreen('level-select-screen');
+    });
+
+    sentenceModeBtn.addEventListener('click', () => {
+        populateLevelSelectScreen('sentences');
         showScreen('level-select-screen');
     });
 
     backToMenuBtn.addEventListener('click', () => {
-        showScreen('level-select-screen');
+        showScreen('mode-select-screen');
+    });
+
+    backToMenuBtnSentences.addEventListener('click', () => {
+        showScreen('mode-select-screen');
     });
 
     // Initial state
