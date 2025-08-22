@@ -30,10 +30,17 @@ h1, h2, h3 {
     font-family: 'Heebo', sans-serif;
 }
 
-#spanish-column .word-card,
-#spanish-column h2 {
+/* Dynamic direction and font styles for foreign language column */
+.lang-es .word-card, .lang-es h2,
+.lang-en .word-card, .lang-en h2,
+.lang-de .word-card, .lang-de h2 {
     font-family: 'Montserrat', sans-serif;
     direction: ltr;
+}
+
+.lang-ar .word-card, .lang-ar h2 {
+    font-family: 'Heebo', sans-serif; /* Using Heebo as a stand-in for a proper Arabic font if not available */
+    direction: rtl;
 }
 
 #game-wrapper {
@@ -442,6 +449,38 @@ h1, h2, h3 {
     }
 }
 
+/* --- Language Select Screen Styles --- */
+.lang-select-content {
+    text-align: center;
+}
+
+.lang-options-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.lang-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    width: 200px;
+    padding: 40px 20px;
+    font-size: 1.8em;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.lang-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    border-color: var(--selected-bg);
+}
+
 /* --- Sentence Game Styles --- */
 .sentence-game-wrapper {
     background: var(--card-bg);
@@ -509,6 +548,31 @@ h1, h2, h3 {
 }
 
 /* --- Mode Select Screen Styles --- */
+.mode-select-content {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.change-lang-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Heebo', sans-serif;
+}
+
+.change-lang-btn:hover {
+    background-color: var(--border-color);
+}
+
 #mode-select-screen h2 {
     font-size: 2.5em;
     margin-bottom: 40px;

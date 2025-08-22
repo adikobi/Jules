@@ -26,9 +26,23 @@
             </div>
         </section>
 
-        <!-- Screen 2: Mode Select Screen (Hidden by default) -->
+        <!-- Screen 2: Language Select Screen (Hidden by default) -->
+        <section id="lang-select-screen" class="screen hidden">
+            <div class="lang-select-content">
+                <h2>בחר שפה ללימוד</h2>
+                <div class="lang-options-container">
+                    <div class="lang-card" data-lang="es">Español</div>
+                    <div class="lang-card" data-lang="en">English</div>
+                    <div class="lang-card" data-lang="de">Deutsch</div>
+                    <div class="lang-card" data-lang="ar">العربية</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 3: Mode Select Screen (Hidden by default) -->
         <section id="mode-select-screen" class="screen hidden">
             <div class="mode-select-content">
+                <button id="change-lang-btn" class="change-lang-btn"><i class="fas fa-globe"></i> שנה שפה</button>
                 <h2>בחר מצב משחק</h2>
                 <div class="mode-options-container">
                     <div class="mode-card" id="mode-words">
@@ -107,6 +121,12 @@
 
     <script src="words.js"></script>
     <script src="sentences.js"></script>
+    <script src="words_en.js"></script>
+    <script src="sentences_en.js"></script>
+    <script src="words_de.js"></script>
+    <script src="sentences_de.js"></script>
+    <script src="words_ar.js"></script>
+    <script src="sentences_ar.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

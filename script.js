@@ -2,12 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Screen Management ---
     const screens = document.querySelectorAll('.screen');
     const splashScreen = document.getElementById('splash-screen');
+    const langSelectScreen = document.getElementById('lang-select-screen');
     const modeSelectScreen = document.getElementById('mode-select-screen');
     const levelSelectScreen = document.getElementById('level-select-screen');
     const gameScreen = document.getElementById('game-screen');
     const startGameBtn = document.getElementById('start-game-btn');
     const wordModeBtn = document.getElementById('mode-words');
     const sentenceModeBtn = document.getElementById('mode-sentences');
+    const langCards = document.querySelectorAll('.lang-card');
+    const changeLangBtn = document.getElementById('change-lang-btn');
     const levelPathContainer = document.getElementById('level-path-container');
     const backToMenuBtn = document.getElementById('back-to-menu-btn');
     const backToMenuBtnSentences = document.getElementById('back-to-menu-btn-sentences');
@@ -32,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const levelSelect = document.getElementById('level-select'); // This will be replaced later
     const statusMessage = document.getElementById('status-message');
 
+    // --- App State ---
+    const LANGUAGE_KEY = 'palabras_selected_language';
+    let selectedLanguage = null;
     let currentLevel = 1;
     let currentWords = [];
     let selectedHebrew = null;
@@ -92,11 +98,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadLevel(level) {
         currentLevel = level;
+        const wordData = window['words_' + selectedLanguage] || words;
+
+        // --- Update foreign language column header and style ---
+        const langMap = { es: 'Español', en: 'English', de: 'Deutsch', ar: 'العربية' };
+        const foreignColumn = document.getElementById('spanish-column'); // This ID is now misleading, but we'll keep it for simplicity
+        const foreignHeader = foreignColumn.querySelector('h2');
+        foreignHeader.textContent = langMap[selectedLanguage] || 'Español';
+
+        foreignColumn.className = 'column'; // Reset classes
+        foreignColumn.classList.add(`lang-${selectedLanguage || 'es'}`);
+        // End of dynamic column update
+
         if (level === 'mixed') {
-            let allWords = words.levels.reduce((acc, currentLevel) => acc.concat(currentLevel.words), []);
+            let allWords = wordData.levels.reduce((acc, currentLevel) => acc.concat(currentLevel.words), []);
             currentWords = shuffleArray([...allWords]);
         } else {
-            const levelData = words.levels.find(l => l.level == level);
+            const levelData = wordData.levels.find(l => l.level == level);
             if (levelData) {
                 currentWords = shuffleArray([...levelData.words]);
             }
@@ -122,10 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const hebrewWords = roundWords.map(word => word.hebrew);
-        const spanishWords = roundWords.map(word => word.spanish);
+        const foreignWords = roundWords.map(word => word.foreign);
 
         displayWords(shuffleArray(hebrewWords), hebrewColumn, 'hebrew');
-        displayWords(shuffleArray(spanishWords), spanishColumn, 'spanish');
+        displayWords(shuffleArray(foreignWords), spanishColumn, 'foreign');
     }
 
     function clearBoard() {
@@ -144,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             wordSpan.textContent = wordText;
             card.appendChild(wordSpan);
 
-            if (language === 'spanish') {
+            if (language === 'foreign') {
                 const speakerIcon = document.createElement('i');
                 speakerIcon.className = 'fas fa-volume-up speaker-icon';
                 speakerIcon.addEventListener('click', (e) => {
@@ -171,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             selectedHebrew = selectedCard;
             selectedHebrew.classList.add('selected');
-        } else if (lang === 'spanish') {
+        } else if (lang === 'foreign') {
             if (selectedSpanish) {
                 selectedSpanish.classList.remove('selected');
             }
@@ -186,15 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkMatch() {
         const hebrewWord = selectedHebrew.dataset.word;
-        const spanishWord = selectedSpanish.dataset.word;
+        const foreignWord = selectedSpanish.dataset.word;
 
         let correctPair;
+        const wordData = window['words_' + selectedLanguage] || words;
+
         if (currentLevel === 'mixed') {
-            let allWords = words.levels.reduce((acc, level) => acc.concat(level.words), []);
-            correctPair = allWords.find(pair => pair.hebrew === hebrewWord && pair.spanish === spanishWord);
+            let allWords = wordData.levels.reduce((acc, level) => acc.concat(level.words), []);
+            correctPair = allWords.find(pair => pair.hebrew === hebrewWord && pair.foreign === foreignWord);
         } else {
-            const levelData = words.levels.find(l => l.level == currentLevel);
-            correctPair = levelData.words.find(pair => pair.hebrew === hebrewWord && pair.spanish === spanishWord);
+            const levelData = wordData.levels.find(l => l.level == currentLevel);
+            correctPair = levelData.words.find(pair => pair.hebrew === hebrewWord && pair.foreign === foreignWord);
         }
 
         // Stop pulsing
@@ -260,7 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- SENTENCE GAME LOGIC ---
     function loadSentenceLevel(levelNum) {
         currentSentenceLevel = levelNum;
-        const levelData = sentences.levels.find(l => l.level == levelNum);
+        const sentenceData = window['sentences_' + selectedLanguage] || sentences;
+        const levelData = sentenceData.levels.find(l => l.level == levelNum);
         if (levelData) {
             currentSentences = shuffleArray([...levelData.sentences]);
             currentSentenceIndex = 0;
@@ -326,7 +347,9 @@ document.addEventListener('DOMContentLoaded', () => {
         levelPathContainer.innerHTML = ''; // Clear previous nodes
         const completedLevels = progress.getCompletedLevels(); // Note: progress is shared for now
 
-        const dataSource = (mode === 'words') ? words : sentences;
+        const dataSource = (mode === 'words')
+            ? (window['words_' + selectedLanguage] || words)
+            : (window['sentences_' + selectedLanguage] || sentences);
 
         dataSource.levels.forEach(level => {
             const levelNode = document.createElement('div');
@@ -374,8 +397,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Event Listeners & Initial State ---
-    startGameBtn.addEventListener('click', () => {
+
+    function setLanguage(lang) {
+        selectedLanguage = lang;
+        localStorage.setItem(LANGUAGE_KEY, lang);
+        // In a future step, this is where we would dynamically load scripts
         showScreen('mode-select-screen');
+    }
+
+    langCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const lang = card.dataset.lang;
+            setLanguage(lang);
+        });
+    });
+
+    startGameBtn.addEventListener('click', () => {
+        const savedLang = localStorage.getItem(LANGUAGE_KEY);
+        if (savedLang) {
+            setLanguage(savedLang);
+        } else {
+            showScreen('lang-select-screen');
+        }
+    });
+
+    changeLangBtn.addEventListener('click', () => {
+        localStorage.removeItem(LANGUAGE_KEY);
+        selectedLanguage = null;
+        showScreen('lang-select-screen');
     });
 
     wordModeBtn.addEventListener('click', () => {

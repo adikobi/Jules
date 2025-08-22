@@ -1,0 +1,19 @@
+const words_en = {
+    levels: [
+        { level: 1, name: "רמה 1: Basics", words: [ { hebrew: "שלום", foreign: "Hello" }, { hebrew: "תודה", foreign: "Thank you" }, { hebrew: "כן", foreign: "Yes" }, { hebrew: "לא", foreign: "No" }, { hebrew: "בבקשה", foreign: "Please" } ] },
+        { level: 2, name: "רמה 2: People", words: [ { hebrew: "איש", foreign: "Man" }, { hebrew: "אישה", foreign: "Woman" }, { hebrew: "ילד", foreign: "Boy" }, { hebrew: "ילדה", foreign: "Girl" }, { hebrew: "חבר", foreign: "Friend" } ] },
+        { level: 3, name: "רמה 3: Numbers", words: [ { hebrew: "אחת", foreign: "One" }, { hebrew: "שתיים", foreign: "Two" }, { hebrew: "שלוש", foreign: "Three" }, { hebrew: "ארבע", foreign: "Four" }, { hebrew: "חמש", foreign: "Five" } ] },
+        { level: 4, name: "רמה 4: Colors", words: [ { hebrew: "אדום", foreign: "Red" }, { hebrew: "כחול", foreign: "Blue" }, { hebrew: "ירוק", foreign: "Green" }, { hebrew: "צהוב", foreign: "Yellow" }, { hebrew: "שחור", foreign: "Black" } ] },
+        { level: 5, name: "רמה 5: Animals", words: [ { hebrew: "כלב", foreign: "Dog" }, { hebrew: "חתול", foreign: "Cat" }, { hebrew: "סוס", foreign: "Horse" }, { hebrew: "דג", foreign: "Fish" }, { hebrew: "ציפור", foreign: "Bird" } ] },
+        { level: 6, name: "רמה 6: Food", words: [ { hebrew: "מים", foreign: "Water" }, { hebrew: "לחם", foreign: "Bread" }, { hebrew: "תפוח", foreign: "Apple" }, { hebrew: "גבינה", foreign: "Cheese" }, { hebrew: "חלב", foreign: "Milk" } ] },
+        { level: 7, name: "רמה 7: Verbs", words: [ { hebrew: "ללכת", foreign: "To go" }, { hebrew: "לאכול", foreign: "To eat" }, { hebrew: "לשתות", foreign: "To drink" }, { hebrew: "לראות", foreign: "To see" }, { hebrew: "לדבר", foreign: "To speak" } ] },
+        { level: 8, name: "רמה 8: Adjectives", words: [ { hebrew: "גדול", foreign: "Big" }, { hebrew: "קטן", foreign: "Small" }, { hebrew: "טוב", foreign: "Good" }, { hebrew: "רע", foreign: "Bad" }, { hebrew: "שמח", foreign: "Happy" } ] },
+        { level: 9, name: "רמה 9: Clothes", words: [ { hebrew: "חולצה", foreign: "Shirt" }, { hebrew: "מכנסיים", foreign: "Pants" }, { hebrew: "נעליים", foreign: "Shoes" }, { hebrew: "כובע", foreign: "Hat" }, { hebrew: "שמלה", foreign: "Dress" } ] },
+        { level: 10, name: "רמה 10: Body", words: [ { hebrew: "ראש", foreign: "Head" }, { hebrew: "יד", foreign: "Hand" }, { hebrew: "רגל", foreign: "Foot" }, { hebrew: "עין", foreign: "Eye" }, { hebrew: "פה", foreign: "Mouth" } ] },
+        { level: 11, name: "רמה 11: Home", words: [ { hebrew: "בית", foreign: "House" }, { hebrew: "דלת", foreign: "Door" }, { hebrew: "חלון", foreign: "Window" }, { hebrew: "מיטה", foreign: "Bed" }, { hebrew: "מטבח", foreign: "Kitchen" } ] },
+        { level: 12, name: "רמה 12: City", words: [ { hebrew: "עיר", foreign: "City" }, { hebrew: "מכונית", foreign: "Car" }, { hebrew: "רחוב", foreign: "Street" }, { hebrew: "חנות", foreign: "Shop" }, { hebrew: "בית ספר", foreign: "School" } ] },
+        { level: 13, name: "רמה 13: Travel", words: [ { hebrew: "מטוס", foreign: "Airplane" }, { hebrew: "מלון", foreign: "Hotel" }, { hebrew: "רכבת", foreign: "Train" }, { hebrew: "חוף", foreign: "Beach" }, { hebrew: "מפה", foreign: "Map" } ] },
+        { level: 14, name: "רמה 14: Nature", words: [ { hebrew: "שמש", foreign: "Sun" }, { hebrew: "ירח", foreign: "Moon" }, { hebrew: "עץ", foreign: "Tree" }, { hebrew: "פרח", foreign: "Flower" }, { hebrew: "מים", foreign: "Water" } ] },
+        { level: 15, name: "רמה 15: Time", words: [ { hebrew: "יום", foreign: "Day" }, { hebrew: "שנה", foreign: "Year" }, { hebrew: "שעה", foreign: "Hour" }, { hebrew: "דקה", foreign: "Minute" }, { hebrew: "שבוע", foreign: "Week" } ] }
+    ]
+};
