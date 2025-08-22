@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק לימוד ספרדית</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>לימוד ספרדית</h1>
+        <div id="controls">
+            <label for="level-select">בחר רמה:</label>
+            <select id="level-select">
+                <option value="1">רמה 1</option>
+                <option value="2">רמה 2</option>
+            </select>
+        </div>
+        <div id="game-board">
+            <div class="column" id="hebrew-column">
+                <h2>עברית</h2>
+            </div>
+            <div class="column" id="spanish-column">
+                <h2>ספרדית</h2>
+            </div>
+        </div>
+        <div id="status-message"></div>
+    </div>
+    <script src="words.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

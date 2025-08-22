@@ -1,0 +1,83 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#game-container {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #005a9c;
+}
+
+#controls {
+    margin-bottom: 20px;
+}
+
+#level-select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#game-board {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+}
+
+.column {
+    width: 150px;
+}
+
+.word-card {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.word-card:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+.word-card.selected {
+    background-color: #aedff7;
+    border-color: #007acc;
+}
+
+.word-card.matched {
+    background-color: #c8e6c9;
+    border-color: #4caf50;
+    cursor: default;
+    opacity: 0.5;
+}
+
+#status-message {
+    margin-top: 20px;
+    font-size: 1.1em;
+    min-height: 25px;
+    font-weight: bold;
+}
+
+.correct {
+    color: #4caf50;
+}
+
+.incorrect {
+    color: #f44336;
+}
