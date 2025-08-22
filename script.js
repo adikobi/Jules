@@ -113,10 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Update Titles and Column Headers ---
         const langName = HEBREW_LANG_NAMES[selectedLanguage] || 'ספרדית';
         wordGameTitle.textContent = 'לימוד ' + langName;
-        const langMap = { es: 'Español', en: 'English', de: 'Deutsch', ar: 'العربية' };
         const foreignColumn = document.getElementById('spanish-column'); // This ID is now misleading, but we'll keep it for simplicity
         const foreignHeader = foreignColumn.querySelector('h2');
-        foreignHeader.textContent = langMap[selectedLanguage] || 'Español';
+        foreignHeader.textContent = langName; // Use the Hebrew name here as well
 
         foreignColumn.className = 'column'; // Reset classes
         foreignColumn.classList.add(`lang-${selectedLanguage || 'es'}`);
@@ -164,6 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayWords(wordsArray, column, language) {
+        const wordData = window['words_' + selectedLanguage] || words;
+
         wordsArray.forEach(wordText => {
             const card = document.createElement('div');
             card.classList.add('word-card');
@@ -175,11 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(wordSpan);
 
             if (language === 'foreign') {
+                // Find the original word object to check for a speech key
+                const wordObject = wordData.levels.flatMap(l => l.words).find(w => w.foreign === wordText);
+                const textToSpeak = wordObject && wordObject.speech ? wordObject.speech : wordText;
+
                 const speakerIcon = document.createElement('i');
                 speakerIcon.className = 'fas fa-volume-up speaker-icon';
                 speakerIcon.addEventListener('click', (e) => {
                     e.stopPropagation(); // Prevent card from being selected
-                    speak(wordText, selectedLanguage);
+                    speak(textToSpeak, selectedLanguage);
                 });
                 card.appendChild(speakerIcon);
             }

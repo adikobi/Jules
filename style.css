@@ -127,6 +127,8 @@ h1, h2, h3 {
     align-items: flex-start; /* Align columns to the top */
     gap: 50px;
     padding: 30px;
+    position: relative; /* Ensure it's in a stacking context */
+    z-index: 2; /* Place it above the header curve */
 }
 
 .word-card {
