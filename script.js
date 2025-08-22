@@ -1,7 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Screen Management ---
+    const screens = document.querySelectorAll('.screen');
+    const splashScreen = document.getElementById('splash-screen');
+    const levelSelectScreen = document.getElementById('level-select-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const startGameBtn = document.getElementById('start-game-btn');
+    const levelPathContainer = document.getElementById('level-path-container');
+    const backToMenuBtn = document.getElementById('back-to-menu-btn');
+
+    function showScreen(screenId) {
+        screens.forEach(screen => {
+            screen.classList.add('hidden');
+        });
+        const targetScreen = document.getElementById(screenId);
+        if (targetScreen) {
+            targetScreen.classList.remove('hidden');
+        }
+    }
+
+    // --- Game Elements ---
     const hebrewColumn = document.getElementById('hebrew-column');
     const spanishColumn = document.getElementById('spanish-column');
-    const levelSelect = document.getElementById('level-select');
+    const levelSelect = document.getElementById('level-select'); // This will be replaced later
     const statusMessage = document.getElementById('status-message');
 
     let currentLevel = 1;
@@ -10,6 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedSpanish = null;
     let matchedPairs = 0;
     const wordsPerRound = 7;
+
+    // --- Progress Management ---
+    const progress = {
+        getCompletedLevels: function() {
+            const completed = localStorage.getItem('palabrasCompletedLevels');
+            return completed ? JSON.parse(completed) : [];
+        },
+        markLevelAsComplete: function(levelNum) {
+            let completed = this.getCompletedLevels();
+            if (!completed.includes(levelNum)) {
+                completed.push(levelNum);
+                localStorage.setItem('palabrasCompletedLevels', JSON.stringify(completed));
+            }
+        }
+    };
 
     // --- TEXT-TO-SPEECH FUNCTIONALITY ---
     let spanishVoice = null;
@@ -44,12 +79,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadLevel(level) {
         currentLevel = level;
-        const levelData = words.levels.find(l => l.level == level);
-        if (levelData) {
-            currentWords = shuffleArray([...levelData.words]);
-            matchedPairs = 0;
-            loadRound();
+        if (level === 'mixed') {
+            let allWords = words.levels.reduce((acc, currentLevel) => acc.concat(currentLevel.words), []);
+            currentWords = shuffleArray([...allWords]);
+        } else {
+            const levelData = words.levels.find(l => l.level == level);
+            if (levelData) {
+                currentWords = shuffleArray([...levelData.words]);
+            }
         }
+
+        matchedPairs = 0;
+        loadRound();
     }
 
     function loadRound() {
@@ -62,6 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (roundWords.length === 0) {
             statusMessage.textContent = 'כל הכבוד! סיימת את כל המילים ברמה זו.';
             statusMessage.className = 'correct';
+            progress.markLevelAsComplete(currentLevel);
+            // TODO: Add a "back to levels" button or automatic transition
             return;
         }
 
@@ -131,8 +174,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkMatch() {
         const hebrewWord = selectedHebrew.dataset.word;
         const spanishWord = selectedSpanish.dataset.word;
-        const levelData = words.levels.find(l => l.level == currentLevel);
-        const correctPair = levelData.words.find(pair => pair.hebrew === hebrewWord && pair.spanish === spanishWord);
+
+        let correctPair;
+        if (currentLevel === 'mixed') {
+            let allWords = words.levels.reduce((acc, level) => acc.concat(level.words), []);
+            correctPair = allWords.find(pair => pair.hebrew === hebrewWord && pair.spanish === spanishWord);
+        } else {
+            const levelData = words.levels.find(l => l.level == currentLevel);
+            correctPair = levelData.words.find(pair => pair.hebrew === hebrewWord && pair.spanish === spanishWord);
+        }
 
         // Stop pulsing
         selectedHebrew.classList.remove('selected');
@@ -141,9 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (correctPair) {
             setStatusMessage('נכון!', 'correct');
 
-            // Trigger tada animation
-            selectedHebrew.classList.add('tada');
-            selectedSpanish.classList.add('tada');
+            // Trigger correct match animation
+            selectedHebrew.classList.add('correct-match');
+            selectedSpanish.classList.add('correct-match');
 
             // Mark as matched after animation
             setTimeout(() => {
@@ -194,10 +244,48 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessage.className = className;
     }
 
-    levelSelect.addEventListener('change', (e) => {
-        loadLevel(e.target.value);
+    function populateLevelSelectScreen() {
+        levelPathContainer.innerHTML = ''; // Clear previous nodes
+        const completedLevels = progress.getCompletedLevels();
+
+        words.levels.forEach(level => {
+            const levelNode = document.createElement('div');
+            levelNode.classList.add('level-node');
+            if (completedLevels.includes(level.level)) {
+                levelNode.classList.add('completed');
+            }
+            levelNode.textContent = level.level;
+            levelNode.dataset.levelId = level.level;
+
+            levelNode.addEventListener('click', () => {
+                loadLevel(level.level);
+                showScreen('game-screen');
+            });
+            levelPathContainer.appendChild(levelNode);
+        });
+
+        // Add Mixed Level Node
+        const mixedLevelNode = document.createElement('div');
+        mixedLevelNode.classList.add('level-node', 'mixed-level');
+        mixedLevelNode.textContent = 'Mix';
+        mixedLevelNode.addEventListener('click', () => {
+            loadLevel('mixed');
+            showScreen('game-screen');
+        });
+        levelPathContainer.appendChild(mixedLevelNode);
+    }
+
+
+    // --- Event Listeners & Initial State ---
+    startGameBtn.addEventListener('click', () => {
+        populateLevelSelectScreen(); // Populate levels right before showing the screen
+        showScreen('level-select-screen');
     });
 
-    // Initial load
-    loadLevel(levelSelect.value);
+    backToMenuBtn.addEventListener('click', () => {
+        showScreen('level-select-screen');
+    });
+
+    // Initial state
+    showScreen('splash-screen');
 });

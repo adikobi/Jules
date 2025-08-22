@@ -3,48 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>משחק לימוד ספרדית</title>
+    <title>Palabras - משחק לימוד ספרדית</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <header class="page-header">
-            <h1>לימוד ספרדית</h1>
-            <div id="controls">
-                <label for="level-select">בחר רמה:</label>
-                <select id="level-select">
-                    <option value="1">רמה 1: יסודות</option>
-                    <option value="2">רמה 2: אנשים ומשפחה</option>
-                    <option value="3">רמה 3: מספרים</option>
-                    <option value="4">רמה 4: צבעים</option>
-                    <option value="5">רמה 5: חיות</option>
-                    <option value="6">רמה 6: אוכל ושתיה</option>
-                    <option value="7">רמה 7: פעלים נפוצים</option>
-                    <option value="8">רמה 8: שמות תואר</option>
-                    <option value="9">רמה 9: בגדים</option>
-                    <option value="10">רמה 10: חלקי גוף</option>
-                    <option value="11">רמה 11: הבית</option>
-                    <option value="12">רמה 12: עיר ותחבורה</option>
-                    <option value="13">רמה 13: טיולים ומקומות</option>
-                    <option value="14">רמה 14: טבע ומזג אוויר</option>
-                    <option value="15">רמה 15: זמן ולוח שנה</option>
-                </select>
+
+    <main>
+        <!-- Screen 1: Splash Screen (Visible by default) -->
+        <section id="splash-screen" class="screen">
+            <div class="splash-content">
+                <div class="logo-animation">
+                    <i class="fas fa-cat cat-icon"></i>
+                    <i class="fas fa-circle-notch yarn-icon"></i>
+                </div>
+                <h1 class="splash-title">Palabras</h1>
+                <p class="splash-subtitle">משחק לימוד ספרדית</p>
+                <button id="start-game-btn" class="start-btn">בואו נתחיל!</button>
             </div>
-        </header>
-        <div id="game-board">
-            <div class="column" id="hebrew-column">
-                <h2>עברית</h2>
+        </section>
+
+        <!-- Screen 2: Level Select Screen (Hidden by default) -->
+        <section id="level-select-screen" class="screen hidden">
+            <!-- Content will be added in a later step -->
+            <h3>בחר שלב</h3>
+            <div id="level-path-container"></div>
+        </section>
+
+        <!-- Screen 3: Game Screen (Hidden by default) -->
+        <section id="game-screen" class="screen hidden">
+            <div id="game-wrapper">
+                <header class="page-header">
+                    <button id="back-to-menu-btn" class="back-btn"><i class="fas fa-arrow-left"></i></button>
+                    <h1>לימוד ספרדית</h1>
+                    <div id="controls">
+                        <!-- The dropdown is now obsolete and can be removed, but kept for reference if needed -->
+                        <label for="level-select" style="display: none;">בחר רמה:</label>
+                        <select id="level-select" style="display: none;">
+                            <option value="1">רמה 1: יסודות</option>
+                            <option value="2">רמה 2: אנשים ומשפחה</option>
+                            <option value="3">רמה 3: מספרים</option>
+                            <option value="4">רמה 4: צבעים</option>
+                            <option value="5">רמה 5: חיות</option>
+                            <option value="6">רמה 6: אוכל ושתיה</option>
+                            <option value="7">רמה 7: פעלים נפוצים</option>
+                            <option value="8">רמה 8: שמות תואר</option>
+                            <option value="9">רמה 9: בגדים</option>
+                            <option value="10">רמה 10: חלקי גוף</option>
+                            <option value="11">רמה 11: הבית</option>
+                            <option value="12">רמה 12: עיר ותחבורה</option>
+                            <option value="13">רמה 13: טיולים ומקומות</option>
+                            <option value="14">רמה 14: טבע ומזג אוויר</option>
+                            <option value="15">רמה 15: זמן ולוח שנה</option>
+                        </select>
+                    </div>
+                </header>
+                <div id="game-board">
+                    <div class="column" id="hebrew-column">
+                        <h2>עברית</h2>
+                    </div>
+                    <div class="column" id="spanish-column">
+                        <h2>ספרדית</h2>
+                    </div>
+                </div>
+                <div id="status-message"></div>
             </div>
-            <div class="column" id="spanish-column">
-                <h2>ספרדית</h2>
-            </div>
-        </div>
-        <div id="status-message"></div>
-    </div>
+        </section>
+    </main>
+
     <script src="words.js"></script>
     <script src="script.js"></script>
 </body>
