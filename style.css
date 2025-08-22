@@ -1,83 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap');
+
+:root {
+    --bg-gradient-start: #6dd5ed;
+    --bg-gradient-end: #2193b0;
+    --container-bg: rgba(255, 255, 255, 0.15);
+    --card-bg: rgba(255, 255, 255, 0.25);
+    --text-color: #f0f4f8;
+    --header-color: #ffffff;
+    --selected-bg: #f7b733;
+    --selected-text: #2d3436;
+    --matched-bg: #a8e063;
+    --matched-text: #2d3436;
+    --correct-color: #a8e063;
+    --incorrect-color: #ff6b6b;
+    --border-color: rgba(255, 255, 255, 0.3);
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
+    font-family: 'Assistant', sans-serif;
+    background: linear-gradient(45deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    direction: rtl;
 }
 
 #game-container {
-    background-color: #fff;
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: var(--container-bg);
+    padding: 30px 50px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
     text-align: center;
 }
 
 h1 {
-    color: #005a9c;
+    color: var(--header-color);
+    font-weight: 700;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 #controls {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 #level-select {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-family: 'Assistant', sans-serif;
+    font-size: 1em;
 }
 
 #game-board {
     display: flex;
     justify-content: space-around;
-    gap: 40px;
+    gap: 50px;
 }
 
-.column {
-    width: 150px;
+.column h2 {
+    font-size: 1.5em;
+    color: var(--header-color);
 }
 
 .word-card {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px 18px;
+    margin: 12px 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-size: 1.1em;
+    min-width: 160px;
 }
 
 .word-card:hover {
-    background-color: #f1f1f1;
-    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .word-card.selected {
-    background-color: #aedff7;
-    border-color: #007acc;
+    background-color: var(--selected-bg);
+    color: var(--selected-text);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .word-card.matched {
-    background-color: #c8e6c9;
-    border-color: #4caf50;
+    background-color: var(--matched-bg);
+    color: var(--matched-text);
     cursor: default;
-    opacity: 0.5;
+    opacity: 0.7;
+    transform: scale(0.95);
 }
 
 #status-message {
-    margin-top: 20px;
-    font-size: 1.1em;
-    min-height: 25px;
+    margin-top: 25px;
+    font-size: 1.2em;
+    min-height: 30px;
     font-weight: bold;
+    transition: color 0.3s;
 }
 
 .correct {
-    color: #4caf50;
+    color: var(--correct-color);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .incorrect {
-    color: #f44336;
+    color: var(--incorrect-color);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
