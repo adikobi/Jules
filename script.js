@@ -143,10 +143,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const roundWords = currentWords.slice(0, wordsPerRound);
         if (roundWords.length === 0) {
-            statusMessage.textContent = 'כל הכבוד! סיימת את כל המילים ברמה זו.';
+            statusMessage.innerHTML = 'כל הכבוד! סיימת את כל המילים ברמה זו.';
             statusMessage.className = 'correct';
-            // progress.markLevelAsComplete(currentLevel); // REMOVED
-            // TODO: Add a "back to levels" button or automatic transition
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'end-level-buttons';
+
+            const replayBtn = document.createElement('button');
+            replayBtn.textContent = 'שחק שוב';
+            replayBtn.className = 'end-level-btn';
+            replayBtn.addEventListener('click', () => loadLevel(currentLevel));
+
+            const backToLevelsBtn = document.createElement('button');
+            backToLevelsBtn.textContent = 'בחר רמה';
+            backToLevelsBtn.className = 'end-level-btn';
+            backToLevelsBtn.addEventListener('click', () => showScreen('level-select-screen'));
+
+            buttonContainer.appendChild(replayBtn);
+            buttonContainer.appendChild(backToLevelsBtn);
+            statusMessage.appendChild(buttonContainer);
+
             return;
         }
 
