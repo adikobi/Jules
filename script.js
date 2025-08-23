@@ -158,8 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearBoard() {
-        hebrewColumn.innerHTML = '<h2>עברית</h2>';
-        spanishColumn.innerHTML = '<h2>ספרדית</h2>';
+        // Remove only word cards, not the entire column content
+        const hebrewCards = hebrewColumn.querySelectorAll('.word-card');
+        hebrewCards.forEach(card => card.remove());
+
+        const foreignCards = spanishColumn.querySelectorAll('.word-card');
+        foreignCards.forEach(card => card.remove());
     }
 
     function displayWords(wordsArray, column, language) {
