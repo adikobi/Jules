@@ -347,17 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const sentenceData = currentSentences[currentSentenceIndex];
-        const parts = sentenceData.text.split('___');
-
-        const part1 = document.createElement('span');
-        part1.textContent = parts[0];
-
-        const blank = document.createElement('span');
-        blank.className = 'blank';
-        blank.textContent = '___';
-
-        const part2 = document.createElement('span');
-        part2.textContent = parts[1] || '';
+        const sentenceHTML = sentenceData.text.replace('___', '<span class="blank">___</span>');
+        sentenceDisplay.innerHTML = sentenceHTML;
 
         const translateIcon = document.createElement('i');
         translateIcon.className = 'fas fa-language translate-icon';
@@ -366,8 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sentenceStatusMessage.textContent = sentenceData.hebrew;
             sentenceStatusMessage.className = ''; // Neutral color
         });
-
-        sentenceDisplay.append(part1, blank, part2, translateIcon);
+        sentenceDisplay.appendChild(translateIcon);
 
         const shuffledChoices = shuffleArray([...sentenceData.choices]);
         shuffledChoices.forEach(choice => {

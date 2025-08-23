@@ -184,6 +184,7 @@ h1, h2, h3 {
     min-height: 30px;
     font-weight: bold;
     transition: color 0.3s;
+    padding-bottom: 20px; /* Add padding for aesthetics */
 }
 
 .correct {
