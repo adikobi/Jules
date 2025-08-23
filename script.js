@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const sentenceData = currentSentences[currentSentenceIndex];
-        const sentenceHTML = sentenceData.text.replace('___', '<span class="blank">___</span>');
+        const sentenceHTML = sentenceData.text.replace('___', '<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
         sentenceDisplay.innerHTML = sentenceHTML;
 
         const translateIcon = document.createElement('i');
