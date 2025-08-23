@@ -39,7 +39,9 @@ var words = {
                 { hebrew: "אחות", foreign: "Hermana" },
                 { hebrew: "תינוק", foreign: "Bebé" },
                 { hebrew: "סבא", foreign: "Abuelo" },
-                { hebrew: "סבתא", foreign: "Abuela" }
+                { hebrew: "סבתא", foreign: "Abuela" },
+                { hebrew: "בן", foreign: "Hijo" },
+                { hebrew: "בת", foreign: "Hija" }
             ]
         },
         {
@@ -94,7 +96,9 @@ var words = {
                 { hebrew: "אריה", foreign: "León" },
                 { hebrew: "פיל", foreign: "Elefante" },
                 { hebrew: "קוף", foreign: "Mono" },
-                { hebrew: "נחש", foreign: "Serpiente" }
+                { hebrew: "נחש", foreign: "Serpiente" },
+                { hebrew: "ארנב", foreign: "Conejo" },
+                { hebrew: "עכבר", foreign: "Ratón" }
             ]
         },
         {
@@ -114,7 +118,8 @@ var words = {
                 { hebrew: "יין", foreign: "Vino" },
                 { hebrew: "סלט", foreign: "Ensalada" },
                 { hebrew: "מרק", foreign: "Sopa" },
-                { hebrew: "סוכר", foreign: "Azúcar" }
+                { hebrew: "סוכר", foreign: "Azúcar" },
+                { hebrew: "בשר", foreign: "Carne" }
             ]
         },
         {
@@ -133,7 +138,9 @@ var words = {
                 { hebrew: "לראות", foreign: "Ver" },
                 { hebrew: "לשמוע", foreign: "Oír" },
                 { hebrew: "לדעת", foreign: "Saber" },
-                { hebrew: "לתת", foreign: "Dar" }
+                { hebrew: "לתת", foreign: "Dar" },
+                { hebrew: "לקחת", foreign: "Tomar" },
+                { hebrew: "למצוא", foreign: "Encontrar" }
             ]
         },
         {
@@ -153,7 +160,9 @@ var words = {
                 { hebrew: "חדש", foreign: "Nuevo" },
                 { hebrew: "ישן", foreign: "Viejo" },
                 { hebrew: "שמח", foreign: "Feliz" },
-                { hebrew: "עצוב", foreign: "Triste" }
+                { hebrew: "עצוב", foreign: "Triste" },
+                { hebrew: "עשיר", foreign: "Rico" },
+                { hebrew: "עני", foreign: "Pobre" }
             ]
         },
         {
@@ -168,7 +177,8 @@ var words = {
                 { hebrew: "מעיל", foreign: "Abrigo" },
                 { hebrew: "גרביים", foreign: "Calcetines" },
                 { hebrew: "חצאית", foreign: "Falda" },
-                { hebrew: "בגדים", foreign: "Ropa" }
+                { hebrew: "בגדים", foreign: "Ropa" },
+                { hebrew: "חליפה", foreign: "Traje" }
             ]
         },
         {
@@ -184,7 +194,9 @@ var words = {
                 { hebrew: "פה", foreign: "Boca" },
                 { hebrew: "שיער", foreign: "Pelo" },
                 { hebrew: "אצבע", foreign: "Dedo" },
-                { hebrew: "גוף", foreign: "Cuerpo" }
+                { hebrew: "גוף", foreign: "Cuerpo" },
+                { hebrew: "לב", foreign: "Corazón" },
+                { hebrew: "דם", foreign: "Sangre" }
             ]
         },
         {
@@ -200,7 +212,9 @@ var words = {
                 { hebrew: "מיטה", foreign: "Cama" },
                 { hebrew: "שולחן", foreign: "Mesa" },
                 { hebrew: "כיסא", foreign: "Silla" },
-                { hebrew: "גג", foreign: "Techo" }
+                { hebrew: "גג", foreign: "Techo" },
+                { hebrew: "רצפה", foreign: "Suelo" },
+                { hebrew: "קיר", foreign: "Pared" }
             ]
         },
         {
@@ -216,7 +230,8 @@ var words = {
                 { hebrew: "חנות", foreign: "Tienda" },
                 { hebrew: "בנק", foreign: "Banco" },
                 { hebrew: "בית חולים", foreign: "Hospital" },
-                { hebrew: "גשר", foreign: "Puente" }
+                { hebrew: "גשר", foreign: "Puente" },
+                { hebrew: "כיכר", foreign: "Plaza" }
             ]
         },
         {
@@ -233,7 +248,8 @@ var words = {
                 { hebrew: "תייר", foreign: "Turista" },
                 { hebrew: "הר", foreign: "Montaña" },
                 { hebrew: "יער", foreign: "Bosque" },
-                { hebrew: "נהר", foreign: "Río" }
+                { hebrew: "נהר", foreign: "Río" },
+                { hebrew: "אגם", foreign: "Lago" }
             ]
         },
         {
@@ -249,7 +265,8 @@ var words = {
                 { hebrew: "שלג", foreign: "Nieve" },
                 { hebrew: "רוח", foreign: "Viento" },
                 { hebrew: "פרח", foreign: "Flor" },
-                { hebrew: "עץ", foreign: "Árbol" }
+                { hebrew: "עץ", foreign: "Árbol" },
+                { hebrew: "אש", foreign: "Fuego" }
             ]
         },
         {
@@ -267,7 +284,8 @@ var words = {
                 { hebrew: "מחר", foreign: "Mañana" },
                 { hebrew: "אתמול", foreign: "Ayer" },
                 { hebrew: "תמיד", foreign: "Siempre" },
-                { hebrew: "אף פעם", foreign: "Nunca" }
+                { hebrew: "אף פעם", foreign: "Nunca" },
+                { hebrew: "עכשיו", foreign: "Ahora" }
             ]
         }
     ]

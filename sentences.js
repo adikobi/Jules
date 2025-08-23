@@ -8,7 +8,8 @@ var sentences = {
                 { text: "Yo bebo ____.", missing: "agua", choices: ["agua", "hablo", "gato"] },
                 { text: "La mujer ____ un libro.", missing: "lee", choices: ["lee", "corre", "manzana"] },
                 { text: "El hombre tiene un ____.", missing: "coche", choices: ["coche", "casa", "hola"] },
-                { text: "El ____ es azul.", missing: "cielo", choices: ["cielo", "sol", "luna"] }
+                { text: "El ____ es azul.", missing: "cielo", choices: ["cielo", "sol", "luna"] },
+                { text: "____, ¿cómo estás?", missing: "Hola", choices: ["Hola", "Adiós", "Gracias"] }
             ]
         },
         {
@@ -19,7 +20,8 @@ var sentences = {
                 { text: "El libro es ____ ti.", missing: "para", choices: ["para", "sin", "él"] },
                 { text: "Voy a la playa ____ mi amigo.", missing: "con", choices: ["con", "desde", "hasta"] },
                 { text: "La casa está ____ del parque.", missing: "cerca", choices: ["cerca", "lejos", "entre"] },
-                { text: "Camino ____ la calle.", missing: "por", choices: ["por", "a", "de"] }
+                { text: "Camino ____ la calle.", missing: "por", choices: ["por", "a", "de"] },
+                { text: "La comida está ____ el plato.", missing: "en", choices: ["en", "a", "de"] }
             ]
         },
         {
@@ -29,7 +31,8 @@ var sentences = {
                 { text: "Ayer, yo ____ una película.", missing: "vi", choices: ["vi", "veo", "veré"] },
                 { text: "Mañana, nosotros ____ a la escuela.", missing: "iremos", choices: ["iremos", "fuimos", "vamos"] },
                 { text: "Ahora, ella está ____.", missing: "comiendo", choices: ["comiendo", "comió", "comerá"] },
-                { text: "Él ____ mucho todos los días.", missing: "trabaja", choices: ["trabaja", "trabajó", "trabajará"] }
+                { text: "Él ____ mucho todos los días.", missing: "trabaja", choices: ["trabaja", "trabajó", "trabajará"] },
+                { text: "La semana pasada, ____ a mi abuela.", missing: "visité", choices: ["visité", "visito", "visitaré"] }
             ]
         }
     ]
