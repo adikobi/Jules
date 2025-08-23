@@ -224,8 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkMatch() {
-        const hebrewWord = selectedHebrew.dataset.word;
-        const foreignWord = selectedSpanish.dataset.word;
+        const hebrewCard = selectedHebrew;
+        const spanishCard = selectedSpanish;
+        const hebrewWord = hebrewCard.dataset.word;
+        const foreignWord = spanishCard.dataset.word;
+
+        // Immediately clear state to prevent race conditions
+        selectedHebrew = null;
+        selectedSpanish = null;
 
         let correctPair;
         const wordData = window['words_' + selectedLanguage] || words;
@@ -239,25 +245,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Stop pulsing
-        selectedHebrew.classList.remove('selected');
-        selectedSpanish.classList.remove('selected');
+        hebrewCard.classList.remove('selected');
+        spanishCard.classList.remove('selected');
 
         if (correctPair) {
             setStatusMessage('נכון!', 'correct');
 
             // Trigger correct match animation
-            selectedHebrew.classList.add('correct-match');
-            selectedSpanish.classList.add('correct-match');
+            hebrewCard.classList.add('correct-match');
+            spanishCard.classList.add('correct-match');
 
             // Mark as matched after animation
             setTimeout(() => {
-                selectedHebrew.classList.add('matched');
-                selectedSpanish.classList.add('matched');
-                selectedHebrew.removeEventListener('click', onWordClick);
-                selectedSpanish.removeEventListener('click', onWordClick);
+                hebrewCard.classList.add('matched');
+                spanishCard.classList.add('matched');
+                hebrewCard.removeEventListener('click', onWordClick);
+                spanishCard.removeEventListener('click', onWordClick);
 
-                selectedHebrew = null;
-                selectedSpanish = null;
                 matchedPairs++;
 
                 if (matchedPairs >= wordsPerRound || matchedPairs >= currentWords.length) {
@@ -276,20 +280,14 @@ document.addEventListener('DOMContentLoaded', () => {
             setStatusMessage('לא נכון, נסו שוב.', 'incorrect');
 
             // Trigger shake animation
-            selectedHebrew.classList.add('shake');
-            selectedSpanish.classList.add('shake');
-
-            const hebrewCard = selectedHebrew;
-            const spanishCard = selectedSpanish;
+            hebrewCard.classList.add('shake');
+            spanishCard.classList.add('shake');
 
             // Remove shake class after animation so it can be re-triggered
             setTimeout(() => {
                 hebrewCard.classList.remove('shake');
                 spanishCard.classList.remove('shake');
             }, 500);
-
-            selectedHebrew = null;
-            selectedSpanish = null;
         }
     }
 
