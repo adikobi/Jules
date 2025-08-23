@@ -301,6 +301,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const langName = HEBREW_LANG_NAMES[selectedLanguage] || 'ספרדית';
         sentenceGameTitle.textContent = 'השלמת משפטים: ' + langName;
+
+        // Set text direction for the sentence
+        if (selectedLanguage === 'ar') {
+            sentenceDisplay.style.direction = 'rtl';
+        } else {
+            sentenceDisplay.style.direction = 'ltr';
+        }
+
         const levelData = sentenceData.levels.find(l => l.level == levelNum);
         if (levelData) {
             currentSentences = shuffleArray([...levelData.sentences]);

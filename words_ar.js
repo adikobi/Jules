@@ -1,109 +1,19 @@
 var words_ar = {
     levels: [
-        { level: 1, name: "רמה 1: أساسيات", words: [
-            { hebrew: "שלום", foreign: "מַרְחַבַּא", speech: "مرحبا" },
-            { hebrew: "תודה", foreign: "שֻכְּרַן", speech: "شكرا" },
-            { hebrew: "כן", foreign: "נַעַם", speech: "نعم" },
-            { hebrew: "לא", foreign: "לַא", speech: "لا" },
-            { hebrew: "בבקשה", foreign: "מִן פַצְ'לִכּ", speech: "من فضلك" }
-        ] },
-        { level: 2, name: "רמה 2: الناس", words: [
-            { hebrew: "איש", foreign: "רַג'וּל", speech: "رجل" },
-            { hebrew: "אישה", foreign: "אִמְרַאַה", speech: "امرأة" },
-            { hebrew: "ילד", foreign: "וַלַד", speech: "ولد" },
-            { hebrew: "ילדה", foreign: "בִּנְת", speech: "بنت" },
-            { hebrew: "חבר", foreign: "סַדִיק", speech: "صديق" }
-        ] },
-        { level: 3, name: "רמה 3: أرقام", words: [
-            { hebrew: "אחת", foreign: "וַאחִד", speech: "واحد" },
-            { hebrew: "שתיים", foreign: "אִתְ'נַאן", speech: "اثنان" },
-            { hebrew: "שלוש", foreign: "תַ'לַאתַ'ה", speech: "ثلاثة" },
-            { hebrew: "ארבע", foreign: "אַרְבַּעַה", speech: "أربعة" },
-            { hebrew: "חמש", foreign: "חַ'מְסַה", speech: "خمسة" }
-        ] },
-        { level: 4, name: "רמה 4: الألوان", words: [
-            { hebrew: "אדום", foreign: "אַחְמַר", speech: "أحمر" },
-            { hebrew: "כחול", foreign: "אַזְרַק", speech: "أزرق" },
-            { hebrew: "ירוק", foreign: "אַחְ'צַ'ר", speech: "أخضر" },
-            { hebrew: "צהוב", foreign: "אַסְפַר", speech: "أصفر" },
-            { hebrew: "שחור", foreign: "אַסְוַד", speech: "أسود" }
-        ] },
-        { level: 5, name: "רמה 5: الحيوانات", words: [
-            { hebrew: "כלב", foreign: "כַּלְבּ", speech: "كلب" },
-            { hebrew: "חתול", foreign: "קִטַّה", speech: "قطة" },
-            { hebrew: "סוס", foreign: "חִצַאן", speech: "حصان" },
-            { hebrew: "דג", foreign: "סַמַכַּה", speech: "سمكة" },
-            { hebrew: "ציפור", foreign: "טַאאִר", speech: "طائر" }
-        ] },
-        { level: 6, name: "רמה 6: طعام", words: [
-            { hebrew: "מים", foreign: "מַاء", speech: "ماء" },
-            { hebrew: "לחם", foreign: "חֻ'בְּז", speech: "خبز" },
-            { hebrew: "תפוח", foreign: "תֻּפַّאחַה", speech: "تفاحة" },
-            { hebrew: "גבינה", foreign: "גֻ'בְּן", speech: "جبن" },
-            { hebrew: "חלב", foreign: "חַלִיבּ", speech: "حليب" }
-        ] },
-        { level: 7, name: "רמה 7: أفعال", words: [
-            { hebrew: "ללכת", foreign: "יַדְ'הַבּ", speech: "يذهب" },
-            { hebrew: "לאכול", foreign: "יַאְכֻּל", speech: "يأكل" },
-            { hebrew: "לשתות", foreign: "יַשְׁרַבּ", speech: "يشرب" },
-            { hebrew: "לראות", foreign: "יַרַא", speech: "يرى" },
-            { hebrew: "לדבר", foreign: "יַתַכַּלַّם", speech: "يتكلم" }
-        ] },
-        { level: 8, name: "רמה 8: الصفات", words: [
-            { hebrew: "גדול", foreign: "כַּבִּיר", speech: "كبير" },
-            { hebrew: "קטן", foreign: "סַעִ'יר", speech: "صغير" },
-            { hebrew: "טוב", foreign: "גַ'יִד", speech: "جيد" },
-            { hebrew: "רע", foreign: "סַיִّא", speech: "سيء" },
-            { hebrew: "שמח", foreign: "סַעִיד", speech: "سعيد" }
-        ] },
-        { level: 9, name: "רמה 9: ملابس", words: [
-            { hebrew: "חולצה", foreign: "קַמִיס", speech: "قميص" },
-            { hebrew: "מכנסיים", foreign: "בִּנְטַאל", speech: "بنطال" },
-            { hebrew: "נעליים", foreign: "חִדַ'אא", speech: "حذاء" },
-            { hebrew: "כובע", foreign: "קֻבַּעַה", speech: "قبعة" },
-            { hebrew: "שמלה", foreign: "פֻסְתַאן", speech: "فستان" }
-        ] },
-        { level: 10, name: "רמה 10: الجسم", words: [
-            { hebrew: "ראש", foreign: "רַאְס", speech: "رأس" },
-            { hebrew: "יד", foreign: "יַד", speech: "يد" },
-            { hebrew: "רגל", foreign: "קַדַם", speech: "قدم" },
-            { hebrew: "עין", foreign: "עַיְן", speech: "عين" },
-            { hebrew: "פה", foreign: "פַם", speech: "فم" }
-        ] },
-        { level: 11, name: "רמה 11: منزل", words: [
-            { hebrew: "בית", foreign: "בַּיְת", speech: "بيت" },
-            { hebrew: "דלת", foreign: "בַּאבּ", speech: "باب" },
-            { hebrew: "חלון", foreign: "שֻׁבַּّאכּ", speech: "شباك" },
-            { hebrew: "מיטה", foreign: "סַרִיר", speech: "سرير" },
-            { hebrew: "מטבח", foreign: "מַטְבַּח'", speech: "مطبخ" }
-        ] },
-        { level: 12, name: "רמה 12: مدينة", words: [
-            { hebrew: "עיר", foreign: "מַדִינַה", speech: "مدينة" },
-            { hebrew: "מכונית", foreign: "סַיַّארַה", speech: "سيارة" },
-            { hebrew: "רחוב", foreign: "שַׁארִע", speech: "شارع" },
-            { hebrew: "חנות", foreign: "מַתְגַ'ר", speech: "متجر" },
-            { hebrew: "בית ספר", foreign: "מַדְרַסַה", speech: "مدرسة" }
-        ] },
-        { level: 13, name: "רמה 13: سفر", words: [
-            { hebrew: "מטוס", foreign: "טַאאִרַה", speech: "طائرة" },
-            { hebrew: "מלון", foreign: "פֻנְדֻק", speech: "فندق" },
-            { hebrew: "רכבת", foreign: "קִטַאר", speech: "قطار" },
-            { hebrew: "חוף", foreign: "שַׁאטִא", speech: "شاطئ" },
-            { hebrew: "מפה", foreign: "חַ'רִיטַה", speech: "خريطة" }
-        ] },
-        { level: 14, name: "רמה 14: طبيعة", words: [
-            { hebrew: "שמש", foreign: "שַׁמְס", speech: "شمس" },
-            { hebrew: "ירח", foreign: "קַמַר", speech: "قمر" },
-            { hebrew: "עץ", foreign: "שַׁגַ'רַה", speech: "شجرة" },
-            { hebrew: "פרח", foreign: "זַהְרַה", speech: "زهرة" },
-            { hebrew: "מים", foreign: "מַاء", speech: "ماء" }
-        ] },
-        { level: 15, name: "רמה 15: زمن", words: [
-            { hebrew: "יום", foreign: "יַוְם", speech: "يوم" },
-            { hebrew: "שנה", foreign: "סַנַה", speech: "سنة" },
-            { hebrew: "שעה", foreign: "סַאעַה", speech: "ساعة" },
-            { hebrew: "דקה", foreign: "דַקִיקַה", speech: "دقيقة" },
-            { hebrew: "שבוע", foreign: "אֻסְבּוּע", speech: "أسبوع" }
-        ] }
+        { level: 1, name: "רמה 1: יסודות", words: [ { hebrew: "שלום", foreign: "מַרְחַבַּא", speech: "مرحبا" }, { hebrew: "תודה", foreign: "שֻכְּרַן", speech: "شكرا" }, { hebrew: "כן", foreign: "נַעַם", speech: "نعم" }, { hebrew: "לא", foreign: "לַא", speech: "لا" }, { hebrew: "בבקשה", foreign: "מִן פַצְ'לִכּ", speech: "من فضلك" } ] },
+        { level: 2, name: "רמה 2: אנשים", words: [ { hebrew: "איש", foreign: "רַג'וּל", speech: "رجل" }, { hebrew: "אישה", foreign: "אִמְרַאַה", speech: "امرأة" }, { hebrew: "ילד", foreign: "וַלַד", speech: "ولد" }, { hebrew: "ילדה", foreign: "בִּנְת", speech: "بنت" }, { hebrew: "חבר", foreign: "סַדִיק", speech: "صديق" } ] },
+        { level: 3, name: "רמה 3: מספרים", words: [ { hebrew: "אחת", foreign: "וַאחִד", speech: "واحد" }, { hebrew: "שתיים", foreign: "אִתְ'נַאן", speech: "اثنان" }, { hebrew: "שלוש", foreign: "תַ'לַאתַ'ה", speech: "ثلاثة" }, { hebrew: "ארבע", foreign: "אַרְבַּעַה", speech: "أربعة" }, { hebrew: "חמש", foreign: "חַ'מְסַה", speech: "خمسة" } ] },
+        { level: 4, name: "רמה 4: צבעים", words: [ { hebrew: "אדום", foreign: "אַחְמַר", speech: "أحمر" }, { hebrew: "כחול", foreign: "אַזְרַק", speech: "أزرق" }, { hebrew: "ירוק", foreign: "אַחְ'צַ'ר", speech: "أخضر" }, { hebrew: "צהוב", foreign: "אַסְפַר", speech: "أصفر" }, { hebrew: "שחור", foreign: "אַסְוַד", speech: "أسود" } ] },
+        { level: 5, name: "רמה 5: חיות", words: [ { hebrew: "כלב", foreign: "כַּלְבּ", speech: "كلب" }, { hebrew: "חתול", foreign: "קִטַّה", speech: "قطة" }, { hebrew: "סוס", foreign: "חִצַאן", speech: "حصان" }, { hebrew: "דג", foreign: "סַמַכַּה", speech: "سمكة" }, { hebrew: "ציפור", foreign: "טַאאִר", speech: "طائر" } ] },
+        { level: 6, name: "רמה 6: אוכל", words: [ { hebrew: "מים", foreign: "מַاء", speech: "ماء" }, { hebrew: "לחם", foreign: "חֻ'בְּז", speech: "خبز" }, { hebrew: "תפוח", foreign: "תֻּפַّאחַה", speech: "تفاحة" }, { hebrew: "גבינה", foreign: "גֻ'בְּן", speech: "جبن" }, { hebrew: "חלב", foreign: "חַלִיבּ", speech: "حليب" } ] },
+        { level: 7, name: "רמה 7: פעלים", words: [ { hebrew: "ללכת", foreign: "יַדְ'הַבּ", speech: "يذهب" }, { hebrew: "לאכול", foreign: "יַאְכֻּל", speech: "يأكل" }, { hebrew: "לשתות", foreign: "יַשְׁרַבּ", speech: "يشرب" }, { hebrew: "לראות", foreign: "יַרַא", speech: "يرى" }, { hebrew: "לדבר", foreign: "יַתַכַּלַّם", speech: "يتكلم" } ] },
+        { level: 8, name: "רמה 8: תארים", words: [ { hebrew: "גדול", foreign: "כַּבִּיר", speech: "كبير" }, { hebrew: "קטן", foreign: "סַעִ'יר", speech: "صغير" }, { hebrew: "טוב", foreign: "גַ'יִד", speech: "جيد" }, { hebrew: "רע", foreign: "סַיִّא", speech: "سيء" }, { hebrew: "שמח", foreign: "סַעִיד", speech: "سعيد" } ] },
+        { level: 9, name: "רמה 9: בגדים", words: [ { hebrew: "חולצה", foreign: "קַמִיס", speech: "قميص" }, { hebrew: "מכנסיים", foreign: "בִּנְטַאל", speech: "بنطال" }, { hebrew: "נעליים", foreign: "חִדַ'אא", speech: "حذاء" }, { hebrew: "כובע", foreign: "קֻבַּעַה", speech: "قبعة" }, { hebrew: "שמלה", foreign: "פֻסְתַאן", speech: "فستان" } ] },
+        { level: 10, name: "רמה 10: גוף", words: [ { hebrew: "ראש", foreign: "רַאְס", speech: "رأس" }, { hebrew: "יד", foreign: "יַד", speech: "يد" }, { hebrew: "רגל", foreign: "קַדַם", speech: "قدم" }, { hebrew: "עין", foreign: "עַיְן", speech: "عين" }, { hebrew: "פה", foreign: "פַם", speech: "فم" } ] },
+        { level: 11, name: "רמה 11: בית", words: [ { hebrew: "בית", foreign: "בַּיְת", speech: "بيت" }, { hebrew: "דלת", foreign: "בַּאבּ", speech: "باب" }, { hebrew: "חלון", foreign: "שֻׁבַּّאכּ", speech: "شباك" }, { hebrew: "מיטה", foreign: "סַרִיר", speech: "سرير" }, { hebrew: "מטבח", foreign: "מַטְבַּח'", speech: "مطبخ" } ] },
+        { level: 12, name: "רמה 12: עיר", words: [ { hebrew: "עיר", foreign: "מַדִינַה", speech: "مدينة" }, { hebrew: "מכונית", foreign: "סַיַّארַה", speech: "سيارة" }, { hebrew: "רחוב", foreign: "שַׁארִע", speech: "شارع" }, { hebrew: "חנות", foreign: "מַתְגַ'ר", speech: "متجر" }, { hebrew: "בית ספר", foreign: "מַדְרַסַה", speech: "مدرسة" } ] },
+        { level: 13, name: "רמה 13: טיולים", words: [ { hebrew: "מטוס", foreign: "טַאאִרַה", speech: "طائرة" }, { hebrew: "מלון", foreign: "פֻנְדֻק", speech: "فندق" }, { hebrew: "רכבת", foreign: "קִטַאר", speech: "قطار" }, { hebrew: "חוף", foreign: "שַׁאטִא", speech: "شاطئ" }, { hebrew: "מפה", foreign: "חַ'רִיטַה", speech: "خريطة" } ] },
+        { level: 14, name: "רמה 14: טבע", words: [ { hebrew: "שמש", foreign: "שַׁמְס", speech: "شمس" }, { hebrew: "ירח", foreign: "קַמַר", speech: "قمر" }, { hebrew: "עץ", foreign: "שַׁגַ'רַה", speech: "شجرة" }, { hebrew: "פרח", foreign: "זַהְרַה", speech: "زهرة" }, { hebrew: "מים", foreign: "מַاء", speech: "ماء" } ] },
+        { level: 15, name: "רמה 15: זמן", words: [ { hebrew: "יום", foreign: "יַוְם", speech: "يوم" }, { hebrew: "שנה", foreign: "סַנַה", speech: "سنة" }, { hebrew: "שעה", foreign: "סַאעַה", speech: "ساعة" }, { hebrew: "דקה", foreign: "דַקִיקַה", speech: "دقيقة" }, { hebrew: "שבוע", foreign: "אֻסְבּוּע", speech: "أسبوع" } ] }
     ]
 };
