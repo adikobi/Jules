@@ -336,6 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayCurrentSentence() {
+        sentenceDisplay.innerHTML = ''; // Clear previous sentence
         sentenceChoicesContainer.innerHTML = '';
         sentenceStatusMessage.textContent = '';
 
@@ -346,7 +347,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const sentenceData = currentSentences[currentSentenceIndex];
-        sentenceDisplay.textContent = sentenceData.text;
+        const parts = sentenceData.text.split('___');
+
+        const part1 = document.createElement('span');
+        part1.textContent = parts[0];
+
+        const blank = document.createElement('span');
+        blank.className = 'blank';
+        blank.textContent = '___';
+
+        const part2 = document.createElement('span');
+        part2.textContent = parts[1] || '';
+
+        const translateIcon = document.createElement('i');
+        translateIcon.className = 'fas fa-language translate-icon';
+        translateIcon.title = 'תרגם משפט';
+        translateIcon.addEventListener('click', () => {
+            sentenceStatusMessage.textContent = sentenceData.hebrew;
+            sentenceStatusMessage.className = ''; // Neutral color
+        });
+
+        sentenceDisplay.append(part1, blank, part2, translateIcon);
 
         const shuffledChoices = shuffleArray([...sentenceData.choices]);
         shuffledChoices.forEach(choice => {
@@ -368,8 +389,13 @@ document.addEventListener('DOMContentLoaded', () => {
             sentenceStatusMessage.className = 'correct';
             buttonElement.classList.add('correct-choice');
 
-            // Animate the word filling in
-            sentenceDisplay.textContent = sentenceDisplay.textContent.replace('___', ` ${correctWord} `);
+            // Replace the blank span with the correct word
+            const blankSpan = sentenceDisplay.querySelector('.blank');
+            if (blankSpan) {
+                blankSpan.textContent = ` ${correctWord} `;
+                blankSpan.style.textDecoration = 'none';
+                blankSpan.style.color = 'var(--matched-bg)';
+            }
 
             setTimeout(() => {
                 currentSentenceIndex++;
